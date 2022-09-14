@@ -1,0 +1,257 @@
+<!-- <h1>Angular Datatables Step by Step Example - ItSolutionStuff.com</h1>
+<table datatable [dtOptions]="dtOptions" class="row-border hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Body</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let post of posts">
+      <td>{{ post.id }}</td>
+      <td>{{ post.title }}</td>
+      <td>{{ post.body }}</td>
+    </tr>
+  </tbody>
+</table> -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 text-center">
+      <h2>Employee Registration</h2>
+    </div>
+  </div>
+  <hr />
+  <div class="row mt-2">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      {{ empDetails.form.valid }}
+      <!-- <span>{{name}}</span> -->
+      <form #empDetails="ngForm" (ngSubmit)="SaveEmpDetails(empDetails.value)">
+        <div class="row mt-2">
+          <div class="col-sm-6">
+            <div class="mb-3">
+              <label for="name" class="form-label text-bold">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                name="name"
+                [(ngModel)]="name"
+                placeholder="JDK Sahu"
+                required
+                #Name="ngModel"
+                pattern="^[A-Za-zÀ-ÿ ,.'-]+$"
+                [class.is-invalid]="Name.invalid && Name.touched"
+              />
+              <div *ngIf="Name.errors && Name.invalid && Name.touched">
+                <small class="text-danger" *ngIf="Name.errors?.['required']">Name is Required.</small> 
+                <small class="text-danger" *ngIf="Name.errors?.['pattern']">Please Enter a valid Name.</small> 
+              </div>
+            </div>
+            </div>
+          <div class="col-sm-6">
+            <div class="mb-3">
+              <label for="mobile" class="form-label text-bold">Mobile No.</label>
+              <input
+                type="tel"
+                class="form-control"
+                id="mobile"
+                name="mobile"
+                required
+                #Mobile="ngModel"
+                [(ngModel)]="mobile"
+                placeholder="0000000000"
+                pattern="[6789][0-9]{9}"
+                [class.is-invalid]="Mobile.invalid && Mobile.touched"
+              />
+              <div *ngIf="Mobile.errors && Mobile.invalid && Mobile.touched">
+                <small class="text-danger" *ngIf="Mobile.errors?.['required']">Mobile is Required.</small> 
+                <small class="text-danger" *ngIf="Mobile.errors?.['pattern']">Please Enter a Valid Mobile Number.</small> 
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-sm-6">
+            <div class="mb-3">
+              <label for="email" class="form-label text-bold">E-mail ID</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                required
+                name="email"
+                #Email="ngModel"
+                [(ngModel)]="email"
+                placeholder="jdksahu@gmail.com"
+                [class.is-invalid]="Email.invalid && Email.touched"
+                />
+                <div *ngIf="Email.errors && Email.invalid && Email.touched">
+                  <small class="text-danger" *ngIf="Email.errors?.['required']">Email is Required.</small> 
+                  <small class="text-danger" *ngIf="Email.errors?.['pattern']">Please Enter a valid Email Address.</small> 
+                </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="mb-3">
+              <label for="Gender" class="form-label text-bold">Gender</label>
+              <br>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  id="rbtnMale"
+                  required
+                  #Gender="ngModel"
+                  [(ngModel)]="gender"
+                  value="Male"
+                  [class.is-invalid]="Gender.invalid && Gender.touched"
+                />
+                <label class="form-check-label" for="rbtnMale">Male</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  id="rbtnFemale"
+                  required
+                  #Gender="ngModel"
+                  [(ngModel)]="gender"
+                  value="Female"
+                  [class.is-invalid]="Gender.invalid && Gender.touched"
+                />
+                <label class="form-check-label" for="rbtnFemale">Female</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="gender"
+                  required
+                  #Gender="ngModel"
+                  id="rbtnOther"
+                  [(ngModel)]="gender"
+                  value="Other"
+                  [class.is-invalid]="Gender.invalid && Gender.touched"
+                />
+                <label class="form-check-label" for="rbtnOther">Other</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-sm-6">
+            <label class="form-check-label" for="City">City</label>
+            <select class="form-select mt-2" name="city" [(ngModel)]="city" aria-label="city" #City="ngModel" required [class.is-invalid]="City.invalid && City.touched">
+              <option value="" selected>--Select--</option>
+              <option *ngFor="let city of cities" value="{{city}}">{{city}}</option>
+            </select>
+            <div *ngIf="City.errors && City.invalid && City.touched">
+              <small class="text-danger" *ngIf="City.errors?.['required']">City is Required.</small> 
+              <small class="text-danger" *ngIf="City.errors?.['pattern']">Please Enter a valid Email Address.</small> 
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="mb-3">
+              <label for="postalCode" class="form-label text-bold">Postal Code</label>
+              <input
+                type="text"
+                class="form-control"
+                id="postalCode"
+                [(ngModel)]="postalCode"
+                name="postalCode"
+                placeholder="000000"
+                required
+                #Postal="ngModel"
+                pattern="[0-9]{6}"
+                [class.is-invalid]="Postal.invalid && Postal.touched"
+              />
+              <div *ngIf="Postal.errors && Postal.invalid && Postal.touched">
+                <small class="text-danger" *ngIf="Postal.errors?.['required']">Postal Code is Required.</small> 
+                <small class="text-danger" *ngIf="Postal.errors?.['pattern']">Please Enter a valid Postal Code.</small> 
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-sm-12">
+            <label class="form-check-label" for="address">Address</label>
+            <textarea
+              rows="4"
+              name="address"
+              id="address"
+              [(ngModel)]="address"
+              class="form-control"
+              required
+              #Address="ngModel"
+              pattern="^[#.0-9a-zA-Z\s,-]+$"
+              [class.is-invalid]="Address.invalid && Address.touched"
+            ></textarea>
+            <div *ngIf="Address.errors && Address.invalid && Address.touched">
+              <small class="text-danger" *ngIf="Address.errors?.['required']">Address is Required.</small> 
+              <small class="text-danger" *ngIf="Address.errors?.['pattern']">Please Enter a valid Address.</small> 
+            </div>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-sm-4 text-center">
+            <button  class="btn btn-block btn-primary" [disabled]="empDetails.invalid">{{id==null || id==0 ?'Save':'Update' }}</button>
+          </div>
+          <div class="col-sm-4 text-center">
+            
+          </div>
+          <div class="col-sm-4 text-center">
+            <button  class="btn btn-block btn-danger" (click)="resetForm()">Reset</button>
+          </div>
+        </div>
+        <input
+                  type="hidden"
+                  name="id"
+                  id="id"
+                  [(ngModel)]="id"
+                />
+      </form>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+  <div class="row">
+    <caption style="color:rgb(156, 0, 0);font-size: 20px;"><b>Employee Details</b></caption>
+
+    <div class="col-sm-12 table-responsive">
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th>Sr. No.</th>
+            <th>Name</th>
+            <th>Mobile No.</th>
+            <th>E-mail ID</th>
+            <th>Gender</th>
+            <th>City</th>
+            <th>Postal Code</th>
+            <th>Address</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let emp of EmplList;let i=index">
+            <td>{{i+1}}</td>
+            <td>{{emp.name}}</td>
+            <td>{{emp.mobile}}</td>
+            <td>{{emp.email}}</td>
+            <td>{{emp.gender}}</td>
+            <td>{{emp.city}}</td>
+            <td>{{emp.postalCode}}</td>
+            <td>{{emp.address}}</td>
+            <td>
+              <button type="button" class="btn btn-warning" (click)="EditEmpDetails(emp.id)">Edit</button>
+              <button type="button" class="btn btn-danger m-2" (click)="DeleteEmpDetails(emp.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
